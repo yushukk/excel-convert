@@ -24,6 +24,7 @@ import java.util.List;
 public class OutPutExcel {
     public static Result deal(List<ProBean> proBeanList){
         Result result = new Result();
+        result.setSuccess(true);
         if(proBeanList==null || proBeanList.isEmpty()){
             result.setSuccess(true);
             return result;

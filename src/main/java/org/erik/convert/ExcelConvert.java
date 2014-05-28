@@ -22,7 +22,7 @@ import java.util.List;
 public class ExcelConvert {
 
 
-    public static Result convert(List<File> orgi,String outPut){
+    public static Result convert(List<File> orgi){
 
         Result result = new Result();
         result.setSuccess(true);

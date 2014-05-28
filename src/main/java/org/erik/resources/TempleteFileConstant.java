@@ -1,6 +1,8 @@
 package org.erik.resources;
 
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,9 +19,10 @@ public class TempleteFileConstant {
     public static XSSFWorkbook getTemplateBook(){
 
         XSSFWorkbook book = null;
-        String fileName = TempleteFileConstant.class.getClass().getResource("/1.xlsx").getPath();
+
+        Resource res2 = new ClassPathResource("1.xlsx");
         try {
-            book = new XSSFWorkbook(new FileInputStream(new File(fileName)));
+            book = new XSSFWorkbook(res2.getInputStream());
         } catch (IOException e) {
             e.printStackTrace();
         }

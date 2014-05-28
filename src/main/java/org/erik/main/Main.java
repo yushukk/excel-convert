@@ -2,6 +2,7 @@ package org.erik.main;
 
 import org.erik.Result;
 import org.erik.convert.ExcelConvert;
+import org.erik.resources.PathConfig;
 
 import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
@@ -39,7 +40,7 @@ public class Main extends JFrame
 
         configPanal.add(label);
         text=new JTextField(20);
-        text.setText("D:\\ali\\");
+        text.setText(PathConfig.getPath());
         configPanal.add(text);
 
         getContentPane().add(configPanal,BorderLayout.PAGE_END);
@@ -62,7 +63,6 @@ public class Main extends JFrame
         //panel表示要接受拖拽的控件
         new DropTarget(panel, DnDConstants.ACTION_COPY_OR_MOVE, new DropTargetAdapter()
         {
-            @Override
             public void drop(DropTargetDropEvent dtde)//重写适配器的drop方法
             {
                 try
@@ -75,7 +75,13 @@ public class Main extends JFrame
                         for(File file:list)
                             temp+=file.getAbsolutePath()+";\n";
 
-                        Result result = ExcelConvert.convert(list, text.getText());
+                        Result result = ExcelConvert.convert(list);
+
+                        //save to file
+                        /*if(text.getText()!=null&&!text.getText().equals(PathConfig.getPath())){
+                            PathConfig.savePath(text.getText());
+                        }*/
+
                         if(result.isSuccess()){
                             JOptionPane.showMessageDialog(null, "转换成功");
                         }else{
