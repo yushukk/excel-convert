@@ -36,13 +36,13 @@ public class OutPutExcel {
         int i=1;
 
 
-        SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd");
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat df2 = new SimpleDateFormat("yyyy-MM-dd");
         Calendar cal = Calendar.getInstance();
-        String today = df.format(cal.getTime())+" 13:00";
+        String today = df.format(cal.getTime())+" 13:00:00";
         String dateToday = df2.format(cal.getTime());
         cal.add(Calendar.DAY_OF_MONTH,1);
-        String tomorrow = df.format(cal.getTime())+" 13:00";
+        String tomorrow = df.format(cal.getTime())+" 13:00:00";
 
         for(ProBean pro:proBeanList){
             XSSFRow row = sheet.createRow(i);

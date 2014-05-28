@@ -25,11 +25,13 @@ public class Main extends JFrame
     JPanel panel;//要接受拖拽的面板
     JPanel configPanal;
     JTextField  text;
+    Label label2 = new Label("                          ");
     public Main()
     {
         panel = new JPanel();
         panel.setBackground(Color.YELLOW);
         panel.setSize(500,200);
+        panel.add(label2);
         getContentPane().add(panel, BorderLayout.CENTER);
 
         configPanal = new JPanel();
@@ -69,6 +71,8 @@ public class Main extends JFrame
                 {
                     if (dtde.isDataFlavorSupported(DataFlavor.javaFileListFlavor))//如果拖入的文件格式受支持
                     {
+
+                        label2.setText("转换中。。。。。。。。");
                         dtde.acceptDrop(DnDConstants.ACTION_COPY_OR_MOVE);//接收拖拽来的数据
                         List<File> list =  (List<File>) (dtde.getTransferable().getTransferData(DataFlavor.javaFileListFlavor));
                         String temp="";
@@ -83,9 +87,11 @@ public class Main extends JFrame
                         }*/
 
                         if(result.isSuccess()){
-                            JOptionPane.showMessageDialog(null, "转换成功");
+                            label2.setText("转换成功");
+                            //JOptionPane.showMessageDialog(null, "转换成功");
                         }else{
-                            JOptionPane.showMessageDialog(null, "转换失败，原因："+result.getResultMsg());
+                            label2.setText("转换失败，原因："+result.getResultMsg());
+                            //JOptionPane.showMessageDialog(null, "转换失败，原因："+result.getResultMsg());
                         }
 
                         dtde.dropComplete(true);//指示拖拽操作已完成
