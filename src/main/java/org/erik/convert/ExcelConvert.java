@@ -27,7 +27,9 @@ public class ExcelConvert {
         Result result = new Result();
         result.setSuccess(true);
 
-        List<ProBean> proList = new ArrayList<ProBean>();
+        List<ProBean> proList1 = new ArrayList<ProBean>();
+        List<ProBean> proList2 = new ArrayList<ProBean>();
+        List<ProBean> proList3 = new ArrayList<ProBean>();
 
         for(File file:orgi){
 
@@ -44,24 +46,46 @@ public class ExcelConvert {
                     pro.setItemId(getLong(row.getCell(2)));
                     pro.setNum(getLong(row.getCell(9)));
                     pro.setType(row.getCell(5).getStringCellValue());
-                    proList.add(pro);
+                    if(pro.getType().startsWith("1¿ÅÃÀÀö¶¹")){
+                        proList1.add(pro);
+                    }else if(pro.getType().startsWith("2¿ÅÃÀÀö¶¹")){
+                        proList2.add(pro);
+                    }else if(pro.getType().startsWith("3¿ÅÃÀÀö¶¹")){
+                        proList3.add(pro);
+                    }
 
-                }
 
-                for(ProBean p:proList){
-                    System.out.println(p.getItemId()+","+p.getNum()+","+p.getType());
                 }
 
             } catch (IOException e) {
                 e.printStackTrace();
+                result.setResultMsg("¶ÁÈ¡ÎÄ¼þÊ§°Ü");
                 result.setSuccess(false);
             }
 
-
-            System.out.println(file.getName());
         }
 
-        System.out.println(outPut);
+        String all = "";
+        Result result1 = OutPutExcel.deal(proList1);
+        if(!result1.isSuccess()){
+            all += result1.getResultMsg();
+        }
+
+        Result result2 = OutPutExcel.deal(proList2);
+        if(!result2.isSuccess()){
+            all += result1.getResultMsg();
+        }
+        Result result3 = OutPutExcel.deal(proList3);
+
+        if(!result3.isSuccess()){
+            all += result1.getResultMsg();
+        }
+
+
+        if(all.length()>0){
+            result.setSuccess(false);
+            result.setResultMsg(all);
+        }
 
         return result;
     }
